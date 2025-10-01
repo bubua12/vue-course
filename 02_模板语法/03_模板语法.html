@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>01_模板语法</title>
+    <!-- 引入vue -->
+    <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+
+<!--
+总结：
+1.v-bind可以给标签里的任何属性动态的去绑定值，“v-bind:” 简写成 “:”
+
+2.Vue模板语法有2大类：
+    1.插值语法：
+        功能：用于解析标签体内容 ===> <h1>“标签体内容：起始标签里夹着的内容就是标签体”</h1>
+        写法：{{xxx}}，xxx是js表达式，且可以直接读取到data中的所有属性。
+    2.指令语法：
+        功能：用于解析标签(包括：标签属性、标签体内容、绑定事件..... ===> 这些都属于解析标签的范畴)
+        举例：v-bind:href="xxx" 或  简写为 :href="xxx"，xxx同样要写js表达式，且可以直接读取到data中的所有属性。
+        备注：Vue中有很多的指令，且形式都是：v-????，此处我们只是拿v-bind举个例子。
+-->
+
+<!-- 准备好一个容器 -->
+<div id="root">
+    <h1>插值语法</h1>
+    <h3>你好，{{name}}</h3>
+    <hr/>
+
+    <h1>指令语法</h1>
+    <!-- 报错信息：属性内的插值已被移除。请使用 v-bind 或冒号简写。例如，使用 <div :id="val"> 代替 <div id="{{ val }}"> -->
+<!--    <a href="{{url}}">点我去百度</a>-->
+    <a v-bind:href="url">点我去百度</a> <!-- 加了v-bind之后，Vue会把这个url拿出来当作表达式去执行(读取url这个变量) -->
+    <a :href="Date.now()">这是个链接</a>
+    <a :href="school.url">点我去{{school.name}}</a>
+
+</div>
+
+</body>
+
+<script type="text/javascript">
+    Vue.config.productionTip = false; // 阻止vue在启动时生成生产提示
+
+    new Vue({
+        el: "#root",
+        data: {
+            name: "jack",
+            url: "http://baidu.com",
+            school: {
+                name: "我的大学",
+                url: "http://www.aust.com",
+            }
+        }
+    })
+</script>
+
+</html>
